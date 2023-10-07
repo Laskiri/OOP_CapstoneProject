@@ -1,0 +1,71 @@
+/* General idea of the program/game:
+    A footballSimulator where the user can create a football league and manage/follow a team.
+
+NOTES:
+Builder paterns for initilization of objects.
+
+SPECIFICATIONS:
+    GENERAL PURPOSE AND FUNCTIONALITY:
+    A league will be created with 12 randomly generated teams, that each has 20 players.
+    The user will be asked to select one of the generated teams to manage.
+    When the league,teams and players are Setup, the 'game' begins
+    - The game will last for 22 matchdays (every team plays eachother twice)
+    - Between each match the user can perform the following actions
+        - Look up the scoreboard for the league
+        - Look up the schedule for the league
+        - Check out his team's players stats and Swap out players.
+        - Play the next match.
+    - When all matches have been played the game is over
+        - The final scoreboard will be printed
+        - Different outro text prompts will be printed depending on if the user's team won or not.
+
+    THE LEAGUE:
+        The League has a name and match-day
+
+    THE TEAMS:
+        Each team has a name, rank, wins, ties, losses, goals for, goals against, points, and 20 players
+        - The name is randomly generated at first, the user can change the name of his team before the league starts
+        - The team will be assigned a rank from A-F, with A being the highest.
+            - The higher the team rank, the better players will be generated for the team.
+            - The user's team will be rank A, 2 teams rank B, 3 teams rank C, 3 teams rank D, 2 teams rank E and 1 team rank F.
+        - The team will have 20 players randomly generated for them
+            - 6 Strikers, 6 Midfielders, 6 Defenders and 2 goalkeepers
+            - High ranked teams will have more high ranked players
+            - The user will get a new extra player after each match.
+    THE PLAYERS:
+        Each Football player has a name, age, rank and role
+            - Strikers have the following stats: Shooting, Physicality and Speed.
+            - Midfielders have the following stats: Passing, Physicality and Speed.
+            - Defenders have the following stats: Defending, Physicality and Speed.
+            - Goalkeepers have the stat: ShotStopping.
+        The Football players stat will be generated randomly in an interval determined from the rank
+
+    THE MATCHES:
+        Each match has a home team, away team, goal home, goal away
+            - In each match there will be 0-7 goals (decided randomly)
+                - For each goal it will first be decided which team scores by chance
+                    - a goalscorer will then be decided
+                    - the goal situation; freekick, penalty, corner, outside box, inside box is decided
+                A description of the goal will be promted to the terminal.
+            - When the match ends the result will be prompted and the scoreboard updated
+
+    The SCOREBOARD:
+        The Scoreboard has matchdays played, amount of teams, team ranking and league name
+            - The team ranking is updated after each match
+            - The scoreboard can be displayed between matches and when the league is over
+                - It displays the ranking of the teams, their points, wins, ties, loses and goal difference.
+
+    The SCHEDULE:
+        The schedule contains, the matches played and upcoming matches.
+            - Matches played will have the matchday and result displayed
+            - Upcomming matches will have the matchday and upcomming displayed.
+
+
+
+
+
+
+
+
+
+*/
