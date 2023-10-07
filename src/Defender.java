@@ -18,10 +18,11 @@ public class Defender extends FootballPlayer{
         return this.defending + this.physicality + this.speed;
     }
 
-    void printStats(){
-        System.out.println(this.getName() + " has the following stats:");
-        System.out.println("Defending: " + this.defending);
-        System.out.println("Physicality: " + this.physicality);
-        System.out.println("Speed: " + this.speed);
+    void printPlayer(){
+        System.out.print(this.getClass().getSimpleName() + " - ");
+        System.out.print(this.getName() + " has the following stats: ");
+        System.out.print("Defending: " + this.defending);
+        System.out.print(", Physicality: " + this.physicality);
+        System.out.println(", Speed: " + this.speed);
     }
 }

@@ -10,9 +10,15 @@ public class FootballSimulator {
         /* 2. When a league is created, 12-20 teams should be randomly generated for the league */
 
 
-        // create an array that can store 10 footballplayers
-        FootballPlayer[] footballPlayers = new FootballPlayer[10];
-        // create 10 new strikers through a loop and assign them to the footballplayer array
+        // Testing fo some stuff
+
+        MainTeam team1 = new MainTeam();
+
+        team1.generateFirst20Players();
+        team1.sortFootballPlayersByClass();
+        team1.printAllFootballPlayers();
+        team1.bestStartingEleven(4, 4, 2);
+        team1.printStartingEleven();
 
 
 

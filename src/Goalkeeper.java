@@ -15,8 +15,9 @@ public class Goalkeeper extends FootballPlayer{
         return this.shotStopping;
     }
 
-    void printStats(){
-        System.out.println(this.getName() + " has the following stats:");
+    void printPlayer(){
+        System.out.print(this.getClass().getSimpleName() + " - ");
+        System.out.print(this.getName() + " has the following stats: ");
         System.out.println("Shot Stopping: " + this.shotStopping);
     }
 }

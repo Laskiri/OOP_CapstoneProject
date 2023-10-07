@@ -1,8 +1,18 @@
+import java.util.Random;
+
 public abstract class FootballPlayer {
 
     private String name = "John Doe";
 
     private char rank;
+
+    private static final String[] FIRST_NAMES = {
+            "John", "David", "Michael", "Daniel", "James", "Robert", "William", "Thomas"
+    };
+
+    private static final String[] LAST_NAMES = {
+            "Smith", "Johnson", "Brown", "Davis", "Wilson", "Evans", "Lee", "Taylor"
+    };
 
     public FootballPlayer (char rank) {
         this.rank = rank;
@@ -11,7 +21,14 @@ public abstract class FootballPlayer {
 
     void generateName() {
         // Logic for randomly generating a name
-        this.name = "";
+        Random rand = new Random();
+
+        // Randomly select a first name and a last name
+        String firstName = FIRST_NAMES[rand.nextInt(FIRST_NAMES.length)];
+        String lastName = LAST_NAMES[rand.nextInt(LAST_NAMES.length)];
+
+        // Combine them to form the full name
+        this.name = firstName + " " + lastName;
     }
 
     void setRandomStats() {
@@ -21,7 +38,7 @@ public abstract class FootballPlayer {
         this.rank = rank;
     }
 
-    void printStats() {
+    void printPlayer() {
     }
 
     int totalStats() {
