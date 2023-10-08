@@ -3,7 +3,10 @@ import java.util.*;
 public class MainTeam extends Team{
     private FootballPlayer[] footballPlayers = new FootballPlayer[20];
     private FootballPlayer[] startingEleven = new FootballPlayer[11];
-
+    private int defendersCount;
+    private int midfieldersCount;
+    private int strikersCount;
+    private int goalkeeperCount = 1;
     FootballPlayer generateStriker(char rank) {
         FootballPlayer striker = new Striker(rank);
         striker.generateName();
@@ -51,11 +54,26 @@ public class MainTeam extends Team{
         }
     }
 
-    void bestStartingEleven(int defendersCount, int midfieldersCount, int strikersCount) {
-        int goalkeeperCount = 1;
+    void choseFormation() {
+        Scanner scanner = new Scanner(System.in);
+        while(this.defendersCount + this.midfieldersCount + this.strikersCount + this.goalkeeperCount != 11) {
+            System.out.println("Please enter the number of defenders for your starting 11: ");
+            this.defendersCount = scanner.nextInt();
+            System.out.println("Please enter the number of midfielders for your starting 11: ");
+            this.midfieldersCount = scanner.nextInt();
+            System.out.println("Please enter the number of strikers for your starting 11: ");
+            this.strikersCount = scanner.nextInt();
+            if(this.defendersCount + this.midfieldersCount + this.strikersCount + this.goalkeeperCount != 11) {
+                System.out.println("The number of players in the starting eleven must be 11! Please try again");
+            }
+        }
+    }
+
+    void bestStartingEleven() {
+        Scanner scanner = new Scanner(System.in);
 
         // Check if the total player count matches the required count (11)
-        if (defendersCount + midfieldersCount + strikersCount + goalkeeperCount != 11) {
+        if (this.defendersCount + this.midfieldersCount + this.strikersCount + this.goalkeeperCount != 11) {
             System.out.println("The number of players in the starting eleven must be 11");
             return;
         }
@@ -114,7 +132,7 @@ public class MainTeam extends Team{
 
     void printAllFootballPlayers() {
         int i = 0;
-        System.out.println("All football players: ");
+        System.out.println("All football players on " + this.getName() + " is: ");
         for (FootballPlayer player : footballPlayers) {
             System.out.print(player.getClass().getSimpleName() + " - " + player.getName() + ": with the total stats: " + player.totalStats() + "    ");
             if (++i % 2 == 0) {

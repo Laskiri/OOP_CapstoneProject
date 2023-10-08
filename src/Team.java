@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Team {
     private String name;
 
@@ -21,6 +23,14 @@ public class Team {
 
     private int goalsAgainst = 0;
 
+    private static final String[] TEAM_SUFFIX = {
+            "Hamburger", "Egg", "Pizza", "Hotdog", "Nugget", "French fries", "Burrito", "Vanilla"
+    };
+
+    private static final String[] TEAM_PREFIX = {
+            "FC", "United", "Warriors", "Enjoyers", "Dynasty", "Boomers", "Monopoly", "Squad"
+    };
+
 
 
     void setTeamRank(char rank) {
@@ -36,7 +46,15 @@ public class Team {
     }
 
     void setRandomName() {
-        this.name = "";
+        // Logic for randomly generating a name
+        Random rand = new Random();
+
+        // Randomly select a first name and a last name
+        String suffix = TEAM_SUFFIX[rand.nextInt(TEAM_SUFFIX.length)];
+        String prefix = TEAM_PREFIX[rand.nextInt(TEAM_PREFIX.length)];
+
+        // Combine them to form the full name
+        this.name = suffix + " " + prefix;
     }
 
     void setTeamStats(int rankBaseRating) {
