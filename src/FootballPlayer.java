@@ -52,4 +52,29 @@ public abstract class FootballPlayer {
     public char getRank() {
         return rank;
     }
+
+    int getShooting() {
+        return 0;
+    }
+
+    int getPassing() {
+        return 0;
+    }
+
+    int getPhysicality() {
+        return 0;
+    }
+
+    int getSpeed() {
+        return 0;
+    }
+
+    int getDefending() {
+        return 0;
+    }
+
+    int getShotStopping() {
+        return 0;
+    }
 }
+

@@ -9,6 +9,16 @@ public class Midfielder extends FootballPlayer {
         super(rank);
     }
 
+    int getPhysicality() {
+        return this.physicality;
+    }
+    int getSpeed() {
+        return this.speed;
+    }
+
+    int getPassing() {
+        return this.passing;
+    }
     void setRandomStats() {
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.passing = (int) (Math.random() * 10) + rankBaseRating;

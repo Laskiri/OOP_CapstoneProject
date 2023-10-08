@@ -41,16 +41,16 @@ public class MainTeam extends Team{
     void generateFirst20Players() {
         int i = 0;
         while(i < 6) {
-            this.footballPlayers[i++] = generateStriker('A');
+            this.footballPlayers[i++] = generateStriker(this.getTeamRank());
         }
         while(i < 12) {
-            this.footballPlayers[i++] = generateMidfielder('A');
+            this.footballPlayers[i++] = generateMidfielder(this.getTeamRank());
         }
         while(i < 18) {
-            this.footballPlayers[i++] = generateDefender('A');
+            this.footballPlayers[i++] = generateDefender(this.getTeamRank());
         }
         while(i < 20) {
-            this.footballPlayers[i++] = generateGoalkeeper('A');
+            this.footballPlayers[i++] = generateGoalkeeper(this.getTeamRank());
         }
     }
 
@@ -149,7 +149,26 @@ public class MainTeam extends Team{
 
 
 
-    void setTeamStats(int rankBaseRating) {
-
+    void setTeamStats() {
+        for (FootballPlayer player : startingEleven) {
+            if(player instanceof Striker) {
+                this.totalShooting += player.getShooting();
+                this.totalPhysicality += player.getPhysicality();
+                this.totalSpeed += player.getSpeed();
+            } else if(player instanceof Midfielder) {
+                this.totalPassing += player.getPassing();
+                this.totalPhysicality += player.getPhysicality();
+                this.totalSpeed += player.getSpeed();
+            } else if(player instanceof Defender) {
+                this.totalDefending += player.getDefending();
+                this.totalPhysicality += player.getPhysicality();
+                this.totalSpeed += player.getSpeed();
+            } else if(player instanceof Goalkeeper) {
+                this.totalShotStopping += player.getShotStopping();
+            }
+            else {
+                System.out.println("Error: Player is not of any known class");
+            }
+        }
     }
 }

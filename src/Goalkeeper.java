@@ -11,6 +11,10 @@ public class Goalkeeper extends FootballPlayer{
         this.shotStopping = (int) (Math.random() * 10) + rankBaseRating;
     }
 
+    int getShotStopping() {
+        return this.shotStopping;
+    }
+
     int totalStats() {
         return this.shotStopping;
     }

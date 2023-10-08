@@ -7,6 +7,18 @@ public class Defender extends FootballPlayer{
         super(rank);
     }
 
+    int getPhysicality() {
+        return this.physicality;
+    }
+
+    int getSpeed() {
+        return this.speed;
+    }
+
+    int getDefending() {
+        return this.defending;
+    }
+
     void setRandomStats(){
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.defending = (int) (Math.random() * 10) + rankBaseRating;

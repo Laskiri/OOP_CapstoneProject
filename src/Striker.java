@@ -27,6 +27,18 @@ public class Striker extends FootballPlayer {
         System.out.println(", Speed: " + this.speed);
     }
 
+    int getShooting() {
+        return this.shooting;
+    }
+    int getPhysicality() {
+        return this.physicality;
+    }
+
+    int getSpeed() {
+        return this.speed;
+    }
+
+
     int totalStats() {
         return this.shooting + this.physicality + this.speed;
     }

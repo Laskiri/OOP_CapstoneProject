@@ -36,12 +36,35 @@ public class League {
         }
     }
 
+    void printTeamsStats() {
+        for (int i = 0; i < 12; i++) {
+            this.teams[i].printTeamStats();
+        }
+    }
+
     void choseTeam() {
         System.out.println("Please choose a team by entering the number of the team: ");
         int teamNumber = scanner.nextInt();
         this.chosenTeam.setTeamName(this.teams[teamNumber].getName());
         this.teams[teamNumber] = this.chosenTeam;
         System.out.println("You have chosen " + this.chosenTeam.getName() + " as your team.");
+    }
+    void distributeTeamRanks() {
+        char[] rankDistribution = {'A', 'B', 'C', 'D', 'E', 'F'};
+        for (Team team : teams) {
+            if (team != this.chosenTeam) {
+                team.setTeamRank(rankDistribution[(int) (Math.random() * 6)]);
+            }
+            else {
+                team.setTeamRank('A');
+            }
+        }
+    }
+
+    void InitializeLeagueTeamStats() {
+        for (Team team : teams) {
+            team.setTeamStats();
+        }
     }
 
 

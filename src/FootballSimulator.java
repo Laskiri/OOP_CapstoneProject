@@ -17,13 +17,19 @@ public class FootballSimulator {
         league.printTeams();
         league.choseTeam();
         MainTeam team = (MainTeam) league.chosenTeam;
+        league.distributeTeamRanks();
         team.generateFirst20Players();
         team.sortFootballPlayersByClass();
         team.printAllFootballPlayers();
         team.choseFormation();
         team.bestStartingEleven();
+
+
         System.out.println("We have made the best starting eleven for you, here it is:");
         team.printStartingEleven();
+
+        league.InitializeLeagueTeamStats();
+        league.printTeamsStats();
 
 
 
