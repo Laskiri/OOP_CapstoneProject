@@ -16,6 +16,7 @@ public abstract class FootballPlayer {
 
     public FootballPlayer (char rank) {
         this.rank = rank;
+
     }
 
 
@@ -31,12 +32,14 @@ public abstract class FootballPlayer {
         this.name = firstName + " " + lastName;
     }
 
+
     void setRandomStats() {
     }
 
     void setRank(char rank) {
         this.rank = rank;
     }
+
 
     void printPlayer() {
     }

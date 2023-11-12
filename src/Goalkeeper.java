@@ -1,7 +1,7 @@
 public class Goalkeeper extends FootballPlayer{
     private int shotStopping;
 
-
+    
     public Goalkeeper(char rank){
         super(rank);
     }
@@ -24,4 +24,5 @@ public class Goalkeeper extends FootballPlayer{
         System.out.print(this.getName() + " has the following stats: ");
         System.out.println("Shot Stopping: " + this.shotStopping);
     }
+
 }

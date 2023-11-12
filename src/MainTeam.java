@@ -7,6 +7,7 @@ public class MainTeam extends Team{
     private int midfieldersCount;
     private int strikersCount;
     private int goalkeeperCount = 1;
+
     FootballPlayer generateStriker(char rank) {
         FootballPlayer striker = new Striker(rank);
         striker.generateName();
@@ -134,6 +135,7 @@ public class MainTeam extends Team{
         int i = 0;
         System.out.println("All football players on " + this.getName() + " is: ");
         for (FootballPlayer player : footballPlayers) {
+            /*System.out.println(player);*/
             System.out.print(player.getClass().getSimpleName() + " - " + player.getName() + ": with the total stats: " + player.totalStats() + "    ");
             if (++i % 2 == 0) {
                 System.out.println();

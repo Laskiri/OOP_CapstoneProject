@@ -7,22 +7,15 @@ public class League {
 
     private Team[] teams;
 
-    protected Team chosenTeam = new MainTeam();
+    protected MainTeam chosenTeam = new MainTeam();
 
     public League(String name) {
         this.name = name;
         this.teams = new Team[12];
     }
-
-
-    void setLeagueName(String name) {
-        this.name = name;
-    }
-
     void generateTeams() {
         for (int i = 0; i < 12; i++) {
-            this.teams[i] = new Team();
-            this.teams[i].setRandomName();
+            this.teams[i] = new Team.TeamBuilder().setRandomName().setRandomRank().build();
         }
     }
 
