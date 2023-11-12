@@ -2,6 +2,8 @@
 
 import java.util.Scanner;
 
+import team.*;
+
 public class FootballSimulator {
     public static void main(String[] args) {
 
@@ -9,19 +11,17 @@ public class FootballSimulator {
         System.out.println("Welcome to the Football Simulator! Where you can embark on a journey to bring a team of your choisce to glory!");
         System.out.println("Please enter the desired name for your league: ");
         String leagueName = scanner.nextLine(); // Read user input
-        League league = new League(leagueName);
-        System.out.println("The name of your League is: " + league.getLeagueName());
-        league.generateTeams();
-        System.out.println("The teams in your league are: ");
-        league.printTeams();
-        league.choseTeam();
-        MainTeam mainTeam = league.chosenTeam;
-        /*league.distributeTeamRanks();*/
-        mainTeam.generateFirst20Players();
-        mainTeam.sortFootballPlayersByClass();
+        League league = new LeagueBuilder().setLeagueName(leagueName).generateTeams(12).choseTeam().build();
+        System.out.println(league.toString());
+
+        MainTeam mainTeam = league.getChosenTeam();
+
+        MainTeamHelper mainTeamHelper = new MainTeamHelper(mainTeam);
+        mainTeamHelper.generateFirst20Players(mainTeam);
+        mainTeamHelper.sortFootballPlayersByClass(mainTeam);
         mainTeam.printAllFootballPlayers();
         mainTeam.choseFormation();
-        mainTeam.bestStartingEleven();
+        mainTeamHelper.makeBestStartingEleven(mainTeam);
         System.out.println("We have made the best starting eleven for you, here it is:");
         mainTeam.printStartingEleven();
         league.InitializeLeagueTeamStats();
@@ -36,7 +36,7 @@ public class FootballSimulator {
         *      - Gets updated after each gameweek.
         *  Implement playNextGameweek method on League class
         *      - Matches needs to have a method that handle playing the matches.
-        *           - MainTeam matches should be handled in detail,
+        *           - Team.Team.MainTeam matches should be handled in detail,
         *             Sim matches is decided upon a statistical computation based on the 2 team's rank
         *           - Matches has a result and a score-line, points and goals are added to the team object after matches.
         *

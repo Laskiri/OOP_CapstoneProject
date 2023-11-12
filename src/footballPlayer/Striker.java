@@ -1,3 +1,7 @@
+package footballPlayer;
+
+import utils.RankUtil;
+
 public class Striker extends FootballPlayer {
     private int shooting;
 
@@ -11,7 +15,7 @@ public class Striker extends FootballPlayer {
 
 
     @Override
-    void setRandomStats() {
+    public void setRandomStats() {
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
     // still need to make this different depending on rank.
         this.shooting = (int) (Math.random() * 10) + rankBaseRating;
@@ -19,7 +23,7 @@ public class Striker extends FootballPlayer {
         this.speed = (int) (Math.random() * 10) + rankBaseRating;
     }
 
-    void printPlayer() {
+    public void printPlayer() {
         System.out.print(this.getClass().getSimpleName() + " - ");
         System.out.print(this.getName() + " has the following stats: ");
         System.out.print("Shooting: " + this.shooting);
@@ -27,19 +31,19 @@ public class Striker extends FootballPlayer {
         System.out.println(", Speed: " + this.speed);
     }
 
-    int getShooting() {
+    public int getShooting() {
         return this.shooting;
     }
-    int getPhysicality() {
+    public int getPhysicality() {
         return this.physicality;
     }
 
-    int getSpeed() {
+    public int getSpeed() {
         return this.speed;
     }
 
 
-    int totalStats() {
+    public int totalStats() {
         return this.shooting + this.physicality + this.speed;
     }
 }

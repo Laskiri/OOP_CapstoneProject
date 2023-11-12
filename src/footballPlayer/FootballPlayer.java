@@ -1,3 +1,5 @@
+package footballPlayer;
+
 import java.util.Random;
 
 public abstract class FootballPlayer {
@@ -20,7 +22,7 @@ public abstract class FootballPlayer {
     }
 
 
-    void generateName() {
+    public void generateName() {
         // Logic for randomly generating a name
         Random rand = new Random();
 
@@ -33,22 +35,21 @@ public abstract class FootballPlayer {
     }
 
 
-    void setRandomStats() {
+    public void setRandomStats() {
     }
 
-    void setRank(char rank) {
+   public void setRank(char rank) {
         this.rank = rank;
     }
 
 
-    void printPlayer() {
+   public void printPlayer() {
     }
 
-    int totalStats() {
+   public int totalStats() {
         return 0;
     }
-
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -56,27 +57,26 @@ public abstract class FootballPlayer {
         return rank;
     }
 
-    int getShooting() {
+    public int getShooting() {
         return 0;
     }
 
-    int getPassing() {
+   public int getPassing() {
         return 0;
     }
 
-    int getPhysicality() {
+   public int getPhysicality() {
         return 0;
     }
 
-    int getSpeed() {
+   public int getSpeed() {
         return 0;
     }
 
-    int getDefending() {
+   public int getDefending() {
         return 0;
     }
-
-    int getShotStopping() {
+    public int getShotStopping() {
         return 0;
     }
 }

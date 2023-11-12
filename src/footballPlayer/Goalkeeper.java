@@ -1,4 +1,6 @@
-public class Goalkeeper extends FootballPlayer{
+package footballPlayer;
+
+public class Goalkeeper extends FootballPlayer {
     private int shotStopping;
 
     
@@ -6,20 +8,20 @@ public class Goalkeeper extends FootballPlayer{
         super(rank);
     }
 
-    void setRandomStats(){
+    public void setRandomStats(){
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.shotStopping = (int) (Math.random() * 10) + rankBaseRating;
     }
 
-    int getShotStopping() {
+    public int getShotStopping() {
         return this.shotStopping;
     }
 
-    int totalStats() {
+    public int totalStats() {
         return this.shotStopping;
     }
 
-    void printPlayer(){
+    public void printPlayer(){
         System.out.print(this.getClass().getSimpleName() + " - ");
         System.out.print(this.getName() + " has the following stats: ");
         System.out.println("Shot Stopping: " + this.shotStopping);

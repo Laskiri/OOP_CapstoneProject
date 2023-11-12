@@ -1,22 +1,34 @@
+import team.*;
+
+import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class League {
 
-    Scanner scanner = new Scanner(System.in); // Create a Scanner object
+
     private String name;
 
     private Team[] teams;
 
-    protected MainTeam chosenTeam = new MainTeam();
+    private MainTeam chosenTeam = new MainTeam();
 
-    public League(String name) {
-        this.name = name;
-        this.teams = new Team[12];
+    @Override
+    public String toString() {
+        return "League{" +
+                "name='" + name + '\'' +
+                ", teams=" + Arrays.toString(teams) +
+                '}';
     }
-    void generateTeams() {
-        for (int i = 0; i < 12; i++) {
-            this.teams[i] = new Team.TeamBuilder().setRandomName().setRandomRank().build();
-        }
+
+    public League(LeagueBuilder builder) {
+        this.name = builder.name;
+        this.teams = builder.teams;
+        this.chosenTeam = builder.chosenTeam;
+    }
+
+    public MainTeam getChosenTeam() {
+        return chosenTeam;
     }
 
     String getLeagueName() {
@@ -33,14 +45,6 @@ public class League {
         for (int i = 0; i < 12; i++) {
             this.teams[i].printTeamStats();
         }
-    }
-
-    void choseTeam() {
-        System.out.println("Please choose a team by entering the number of the team: ");
-        int teamNumber = scanner.nextInt();
-        this.chosenTeam.setTeamName(this.teams[teamNumber].getName());
-        this.teams[teamNumber] = this.chosenTeam;
-        System.out.println("You have chosen " + this.chosenTeam.getName() + " as your team.");
     }
     void distributeTeamRanks() {
         char[] rankDistribution = {'A', 'B', 'C', 'D', 'E', 'F'};
@@ -59,6 +63,8 @@ public class League {
             team.setTeamStats();
         }
     }
+
+
 
 
 }

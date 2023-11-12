@@ -1,7 +1,10 @@
+package utils;
+
 import java.util.HashMap;
 
 public final class RankUtil {
     private static final HashMap<Character, Integer> rankMap = new HashMap<>();
+    private RankUtil() {}
 
     static {
         // Populate the rankMap when the class is loaded
@@ -13,7 +16,7 @@ public final class RankUtil {
         rankMap.put('F', 30);
     }
 
-    private RankUtil() {}
+
 
     // A static method that takes a rank as input and returns the associated integer value
     public static int getRankValue(char rank) {

@@ -1,4 +1,6 @@
-import java.util.Random;
+package team;
+
+import utils.RankUtil;
 
 public class Team {
 
@@ -32,15 +34,23 @@ public class Team {
     private int goalsAgainst = 0;
 
 
-    void setTeamRank(char rank) {
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", teamRank=" + teamRank +
+                '}' + "\r\n";
+    }
+
+    public void setTeamRank(char rank) {
         this.teamRank = rank;
     }
 
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
-    void setTeamName(String name) {
+    public void setTeamName(String name) {
         this.name = name;
     }
 
@@ -49,7 +59,7 @@ public class Team {
         return this.teamRank;
     }
 
-    void setTeamStats() {
+    public void setTeamStats() {
         int rankBaseRating = RankUtil.getRankValue(this.teamRank);
         this.totalShooting = 3 * rankBaseRating;
         this.totalDefending = 3 * rankBaseRating;
@@ -59,7 +69,7 @@ public class Team {
         this.totalSpeed = 10 * rankBaseRating;
     }
 
-    void printTeamStats() {
+    public void printTeamStats() {
         System.out.println("Team Name: " + this.name);
         System.out.println("Team Rank: " + this.teamRank);
         System.out.println("Team Stats: ");
@@ -76,50 +86,7 @@ public class Team {
         return this.points;
     }
 
-    // Builder class
-    public static class TeamBuilder {
-        private String name;
-        private char teamRank;
 
-        public TeamBuilder setRandomName() {
-             String[] TEAM_SUFFIX = {
-                    "Hamburger", "Egg", "Pizza", "Hotdog", "Nugget", "French fries", "Burrito", "Vanilla"
-            };
-
-             String[] TEAM_PREFIX = {
-                    "FC", "United", "Warriors", "Enjoyers", "Dynasty", "Boomers", "Monopoly", "Squad"
-            };
-            // Logic for randomly generating a name
-            Random rand = new Random();
-
-
-
-            // Randomly select a first name and a last name
-            String suffix = TEAM_SUFFIX[rand.nextInt(TEAM_SUFFIX.length)];
-            String prefix = TEAM_PREFIX[rand.nextInt(TEAM_PREFIX.length)];
-
-            // Combine them to form the full name
-            this.name = suffix + " " + prefix;
-            return this;
-        }
-
-        public TeamBuilder setRandomRank() {
-            char[] rankDistribution = {'A', 'B', 'C', 'D', 'E', 'F'};
-            this.teamRank = (rankDistribution[(int) (Math.random() * 6)]);
-            return this;
-        }
-
-        public TeamBuilder setRank(char rank) {
-            this.teamRank = rank;
-            return this;
-        }
-
-        public Team build() {
-            return new Team(this);
-        }
-
-
-    }
 
 
 }
