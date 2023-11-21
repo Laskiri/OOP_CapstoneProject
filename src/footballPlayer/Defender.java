@@ -1,5 +1,7 @@
 package footballPlayer;
 
+import utils.RankUtil;
+
 public class Defender extends FootballPlayer {
     private int defending;
     private int physicality;

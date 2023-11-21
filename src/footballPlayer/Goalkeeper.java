@@ -1,5 +1,7 @@
 package footballPlayer;
 
+import utils.RankUtil;
+
 public class Goalkeeper extends FootballPlayer {
     private int shotStopping;
 

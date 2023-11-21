@@ -1,5 +1,7 @@
 package footballPlayer;
 
+import utils.RankUtil;
+
 public class Midfielder extends FootballPlayer {
     private int passing;
 
