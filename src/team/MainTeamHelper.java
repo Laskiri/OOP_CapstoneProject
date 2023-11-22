@@ -2,7 +2,7 @@ package team;
 
 import com.sun.tools.javac.Main;
 import footballPlayer.*;
-
+import utils.UserInterface;
 import java.util.*;
 
 public class MainTeamHelper {
@@ -12,87 +12,59 @@ public class MainTeamHelper {
         this.team = team;
     }
 
+    public void setupTeam() {
+        UserInterface ui = new UserInterface();
+        ui.printAllFootballPlayers(this.team);
+        Formation formation = ui.getFormation(this.team);
+        this.team.setFormation(formation);
+        this.makeBestStartingEleven();
+        this.team.updateTeamStats();
+    }
+
     public FootballPlayer generateStriker(char rank) {
-        FootballPlayer striker = new Striker(rank);
-        striker.generateName();
-        striker.setRandomStats();
+        FootballPlayer striker = new Striker.Builder()
+                .setRandomName()
+                .rank(rank)
+                .setRandomStats()
+                .build();
         return striker;
 
     }
 
     public FootballPlayer generateMidfielder(char rank) {
-        FootballPlayer midfielder = new Midfielder(rank);
-        midfielder.setRank(rank);
-        midfielder.generateName();
-        midfielder.setRandomStats();
+        FootballPlayer midfielder = new Midfielder.Builder()
+                .setRandomName()
+                .rank(rank)
+                .setRandomStats()
+                .build();
         return midfielder;
     }
 
-    public FootballPlayer generateDefender(char Rank) {
-        FootballPlayer defender = new Defender(Rank);
-        defender.generateName();
-        defender.setRandomStats();
+    public FootballPlayer generateDefender(char rank) {
+        FootballPlayer defender = new Defender.Builder()
+                .setRandomName()
+                .rank(rank)
+                .setRandomStats()
+                .build();
         return defender;
     }
 
     public FootballPlayer generateGoalkeeper(char Rank) {
-        FootballPlayer goalkeeper = new Goalkeeper(Rank);
-        goalkeeper.generateName();
-        goalkeeper.setRandomStats();
+        FootballPlayer goalkeeper = new Goalkeeper.Builder()
+                .setRandomName()
+                .rank(Rank)
+                .setRandomStats()
+                .build();
         return goalkeeper;
     }
 
+    public void makeBestStartingEleven() {
 
-    public void generateFirst20Players(MainTeam mainTeam) {
-        int i = 0;
-        while(i < 6) {
-            mainTeam.addFootballPlayer(i++, generateStriker(mainTeam.getTeamRank()));
-        }
-        while(i < 12) {
-            mainTeam.addFootballPlayer(i++, generateMidfielder(mainTeam.getTeamRank()));
-        }
-        while(i < 18) {
-            mainTeam.addFootballPlayer(i++, generateDefender(mainTeam.getTeamRank()));
-        }
-        while(i < 20) {
-            mainTeam.addFootballPlayer(i++, generateGoalkeeper(mainTeam.getTeamRank()));
-        }
-    }
-
-    public void sortFootballPlayersByClass(MainTeam mainTeam) {
-        Arrays.sort(mainTeam.getFootballPlayers(), (player1, player2) ->
-                player1.getClass().getSimpleName().compareTo(player2.getClass().getSimpleName())
-        );
-    }
-
-    public void makeBestStartingEleven(MainTeam mainTeam) {
-        Scanner scanner = new Scanner(System.in);
-
-        // Check if the total player count matches the required count (11)
-        if (mainTeam.getDefendersCount() + mainTeam.getMidfieldersCount() + mainTeam.getStrikersCount() + mainTeam.getGoalkeeperCount() != 11) {
-            System.out.println("The number of players in the starting eleven must be 11");
-            return;
-        }
-
-
-        // Create lists for each position
-        List<FootballPlayer> defenders = new ArrayList<>();
-        List<FootballPlayer> midfielders = new ArrayList<>();
-        List<FootballPlayer> strikers = new ArrayList<>();
-        List<FootballPlayer> goalkeepers = new ArrayList<>();
-
-        // Iterate through footballPlayers and categorize them by position
-        for (FootballPlayer player : mainTeam.getFootballPlayers()) {
-            if (player instanceof Defender) {
-                defenders.add(player);
-            } else if (player instanceof Midfielder) {
-                midfielders.add(player);
-            } else if (player instanceof Striker) {
-                strikers.add(player);
-            } else if (player instanceof Goalkeeper) {
-                goalkeepers.add(player);
-            }
-        }
+        // Get the position-specific lists from the StartingElevenSquad
+        List<Goalkeeper> goalkeepers = this.team.getFootballPlayers().getGoalkeepers();
+        List<Defender> defenders = this.team.getFootballPlayers().getDefenders();
+        List<Midfielder> midfielders = this.team.getFootballPlayers().getMidfielders();
+        List<Striker> strikers = this.team.getFootballPlayers().getStrikers();
 
         // Sort each position list by total stats in descending order
         defenders.sort(Comparator.comparingInt(FootballPlayer::totalStats).reversed());
@@ -103,17 +75,20 @@ public class MainTeamHelper {
         // Fill the starting eleven with the best players from each position
         int index = 0;
 
-        mainTeam.changeStartingPlayer(index++, goalkeepers.get(0));
-        for (int i = 0; i < mainTeam.getDefendersCount(); i++) {
-            mainTeam.changeStartingPlayer(index++, defenders.get(i));
+        this.team.changeStartingPlayer(index++, goalkeepers.get(0));
+        for (int i = 0; i < this.team.getFormation().getDefendersCount(); i++) {
+            this.team.changeStartingPlayer(index++, defenders.get(i));
         }
-        for (int i = 0; i < mainTeam.getMidfieldersCount(); i++) {
-            mainTeam.changeStartingPlayer(index++, midfielders.get(i));
+        for (int i = 0; i < this.team.getFormation().getMidfieldersCount(); i++) {
+            this.team.changeStartingPlayer(index++, midfielders.get(i));
         }
-        for (int i = 0; i < mainTeam.getStrikersCount(); i++) {
-            mainTeam.changeStartingPlayer(index++, strikers.get(i));
+        for (int i = 0; i < this.team.getFormation().getStrikersCount(); i++) {
+            this.team.changeStartingPlayer(index++, strikers.get(i));
         }
 
+        System.out.println("We have made the best starting eleven for you, here it is:");
+        UserInterface ui = new UserInterface();
+        ui.printStartingEleven(this.team);
     }
 
 }

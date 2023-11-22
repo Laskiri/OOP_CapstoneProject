@@ -5,12 +5,33 @@ import utils.RankUtil;
 public class Goalkeeper extends FootballPlayer {
     private int shotStopping;
 
-    
-    public Goalkeeper(char rank){
-        super(rank);
+    public static class Builder extends FootballPlayer.Builder<Builder> {
+        private int shotStopping;
+
+        public Builder setRandomStats() {
+            int rankBaseRating = RankUtil.getRankValue(this.rank);
+            this.shotStopping = (int) (Math.random() * 10) + rankBaseRating;
+            return this;
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+
+        @Override
+        public Goalkeeper build() {
+            return new Goalkeeper(this);
+        }
+
     }
 
-    public void setRandomStats(){
+    public Goalkeeper(Builder builder) {
+        super(builder);
+        this.shotStopping = builder.shotStopping;
+    }
+
+    public void setRandomStats() {
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.shotStopping = (int) (Math.random() * 10) + rankBaseRating;
     }
@@ -23,7 +44,7 @@ public class Goalkeeper extends FootballPlayer {
         return this.shotStopping;
     }
 
-    public void printPlayer(){
+    public void printPlayer() {
         System.out.print(this.getClass().getSimpleName() + " - ");
         System.out.print(this.getName() + " has the following stats: ");
         System.out.println("Shot Stopping: " + this.shotStopping);

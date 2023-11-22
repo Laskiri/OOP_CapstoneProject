@@ -9,18 +9,35 @@ public class Striker extends FootballPlayer {
 
     private int speed;
 
-    public Striker(char rank) {
-        super(rank);
+    public static class Builder extends FootballPlayer.Builder<Builder> {
+        private int shooting;
+        private int physicality;
+        private int speed;
+
+        public Builder setRandomStats() {
+            int rankBaseRating = RankUtil.getRankValue(this.rank);
+            this.shooting = (int) (Math.random() * 10) + rankBaseRating;
+            this.physicality = (int) (Math.random() * 10) + rankBaseRating;
+            this.speed = (int) (Math.random() * 10) + rankBaseRating;
+            return this;
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+
+        @Override
+        public Striker build() {
+            return new Striker(this);
+        }
     }
 
-
-    @Override
-    public void setRandomStats() {
-        int rankBaseRating = RankUtil.getRankValue(this.getRank());
-    // still need to make this different depending on rank.
-        this.shooting = (int) (Math.random() * 10) + rankBaseRating;
-        this.physicality = (int) (Math.random() * 10) + rankBaseRating;
-        this.speed = (int) (Math.random() * 10) + rankBaseRating;
+    public Striker(Builder builder) {
+        super(builder);
+        this.shooting = builder.shooting;
+        this.physicality = builder.physicality;
+        this.speed = builder.speed;
     }
 
     public void printPlayer() {
@@ -34,6 +51,7 @@ public class Striker extends FootballPlayer {
     public int getShooting() {
         return this.shooting;
     }
+
     public int getPhysicality() {
         return this.physicality;
     }
@@ -42,10 +60,7 @@ public class Striker extends FootballPlayer {
         return this.speed;
     }
 
-
     public int totalStats() {
         return this.shooting + this.physicality + this.speed;
     }
 }
-
-

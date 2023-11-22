@@ -7,8 +7,35 @@ public class Defender extends FootballPlayer {
     private int physicality;
     private int speed;
 
-    public Defender(char rank){
-        super(rank);
+    public static class Builder extends FootballPlayer.Builder<Builder> {
+        private int defending;
+        private int physicality;
+        private int speed;
+
+        public Builder setRandomStats() {
+            int rankBaseRating = RankUtil.getRankValue(this.rank);
+            this.defending = (int) (Math.random() * 10) + rankBaseRating;
+            this.physicality = (int) (Math.random() * 10) + rankBaseRating;
+            this.speed = (int) (Math.random() * 10) + rankBaseRating;
+            return this;
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+
+        @Override
+        public Defender build() {
+            return new Defender(this);
+        }
+    }
+
+    public Defender(Builder builder) {
+        super(builder);
+        this.defending = builder.defending;
+        this.physicality = builder.physicality;
+        this.speed = builder.speed;
     }
 
     public int getPhysicality() {
@@ -23,7 +50,7 @@ public class Defender extends FootballPlayer {
         return this.defending;
     }
 
-    public void setRandomStats(){
+    public void setRandomStats() {
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.defending = (int) (Math.random() * 10) + rankBaseRating;
         this.physicality = (int) (Math.random() * 10) + rankBaseRating;
@@ -34,7 +61,7 @@ public class Defender extends FootballPlayer {
         return this.defending + this.physicality + this.speed;
     }
 
-    public void printPlayer(){
+    public void printPlayer() {
         System.out.print(this.getClass().getSimpleName() + " - ");
         System.out.print(this.getName() + " has the following stats: ");
         System.out.print("Defending: " + this.defending);

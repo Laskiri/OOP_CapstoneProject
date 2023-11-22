@@ -3,9 +3,7 @@ import team.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
 public class League {
-
 
     private String name;
 
@@ -31,40 +29,12 @@ public class League {
         return chosenTeam;
     }
 
-    String getLeagueName() {
+    public String getLeagueName() {
         return this.name;
     }
 
-    void printTeams() {
-        for (int i = 0; i < 12; i++) {
-            System.out.println(i + ": "+ this.teams[i].getName());
-        }
+    public Team[] getTeams() {
+        return this.teams;
     }
-
-    void printTeamsStats() {
-        for (int i = 0; i < 12; i++) {
-            this.teams[i].printTeamStats();
-        }
-    }
-    void distributeTeamRanks() {
-        char[] rankDistribution = {'A', 'B', 'C', 'D', 'E', 'F'};
-        for (Team team : teams) {
-            if (team != this.chosenTeam) {
-                team.setTeamRank(rankDistribution[(int) (Math.random() * 6)]);
-            }
-            else {
-                team.setTeamRank('A');
-            }
-        }
-    }
-
-    void InitializeLeagueTeamStats() {
-        for (Team team : teams) {
-            team.setTeamStats();
-        }
-    }
-
-
-
 
 }

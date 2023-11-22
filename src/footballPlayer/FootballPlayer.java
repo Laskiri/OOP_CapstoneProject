@@ -1,54 +1,49 @@
 package footballPlayer;
 
 import java.util.Random;
+import utils.RandomGenerationUtil;
 
 public abstract class FootballPlayer {
 
-    private String name = "John Doe";
+    private String name;
 
     private char rank;
 
-    private static final String[] FIRST_NAMES = {
-            "John", "David", "Michael", "Daniel", "James", "Robert", "William", "Thomas"
-    };
+    public static abstract class Builder<T extends Builder<T>> {
+        private String name;
+        protected char rank;
 
-    private static final String[] LAST_NAMES = {
-            "Smith", "Johnson", "Brown", "Davis", "Wilson", "Evans", "Lee", "Taylor"
-    };
+        public T setRandomName() {
+            this.name = RandomGenerationUtil.generatePlayerName();
+            return self();
+        }
 
-    public FootballPlayer (char rank) {
-        this.rank = rank;
+        public T rank(char rank) {
+            this.rank = rank;
+            return self();
+        }
 
+        protected abstract T self();
+
+        public abstract FootballPlayer build();
     }
 
+    public FootballPlayer(Builder<?> builder) {
+        this.name = builder.name;
+        this.rank = builder.rank;
 
-    public void generateName() {
-        // Logic for randomly generating a name
-        Random rand = new Random();
-
-        // Randomly select a first name and a last name
-        String firstName = FIRST_NAMES[rand.nextInt(FIRST_NAMES.length)];
-        String lastName = LAST_NAMES[rand.nextInt(LAST_NAMES.length)];
-
-        // Combine them to form the full name
-        this.name = firstName + " " + lastName;
     }
-
 
     public void setRandomStats() {
     }
 
-   public void setRank(char rank) {
-        this.rank = rank;
+    public void printPlayer() {
     }
 
-
-   public void printPlayer() {
-    }
-
-   public int totalStats() {
+    public int totalStats() {
         return 0;
     }
+
     public String getName() {
         return this.name;
     }
@@ -61,23 +56,23 @@ public abstract class FootballPlayer {
         return 0;
     }
 
-   public int getPassing() {
+    public int getPassing() {
         return 0;
     }
 
-   public int getPhysicality() {
+    public int getPhysicality() {
         return 0;
     }
 
-   public int getSpeed() {
+    public int getSpeed() {
         return 0;
     }
 
-   public int getDefending() {
+    public int getDefending() {
         return 0;
     }
+
     public int getShotStopping() {
         return 0;
     }
 }
-

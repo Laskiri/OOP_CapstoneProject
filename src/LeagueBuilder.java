@@ -1,16 +1,14 @@
-import team.MainTeam;
-import team.Team;
-import team.TeamBuilder;
 
-import java.util.Scanner;
+import team.*;
+import utils.UserInterface;
 
 public class LeagueBuilder {
-
-    Scanner scanner = new Scanner(System.in); // Create a Scanner object
     String name;
 
-    MainTeam chosenTeam = new MainTeam();
+    MainTeam chosenTeam;
+
     Team[] teams;
+
     public LeagueBuilder setLeagueName(String name) {
         this.name = name;
         return this;
@@ -19,21 +17,24 @@ public class LeagueBuilder {
     public LeagueBuilder generateTeams(int teamAmount) {
         this.teams = new Team[teamAmount];
         for (int i = 0; i < teamAmount; i++) {
-            this.teams[i] = new TeamBuilder().setRandomName().setRandomRank().build();
+            this.teams[i] = new TeamBuilder().setRandomName().setRandomRank().setTeamStats().build();
         }
         return this;
     }
 
-    public LeagueBuilder choseTeam() {
-        for (int i = 0; i < teams.length; i++) {
-            System.out.println(i + ": "+ this.teams[i].getName());
-        }
-        System.out.println("Please choose the team you would like to manage by entering the number of the team: ");
-        int teamNumber = scanner.nextInt();
-        this.chosenTeam.setTeamName(this.teams[teamNumber].getName());
-        this.teams[teamNumber] = this.chosenTeam;
-        System.out.println("You have chosen " + this.chosenTeam.getName() + " as your team.");
+    public LeagueBuilder selectMainTeam() {
+        UserInterface ui = new UserInterface();
+        ui.printTeams(this.teams);
+        int teamNumber = ui.getTeamChoice(this.teams);
 
+        this.chosenTeam = new MainTeamEnhancer(this.teams[teamNumber])
+                .generateFirst20Players()
+                .initializeStartingEleven()
+                .getEnhancedTeam();
+        MainTeamHelper mainTeamHelper = new MainTeamHelper(this.chosenTeam);
+        mainTeamHelper.setupTeam();
+        this.teams[teamNumber] = this.chosenTeam;
+        ui.chosenTeamMessage(this.chosenTeam.getName());
         return this;
     }
 

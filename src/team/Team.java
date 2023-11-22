@@ -4,16 +4,24 @@ import utils.RankUtil;
 
 public class Team {
 
-    public Team (TeamBuilder builder) {
+    public Team(TeamBuilder builder) {
         this.name = builder.name;
         this.teamRank = builder.teamRank;
+        this.totalShooting = builder.totalShooting;
+        this.totalDefending = builder.totalDefending;
+        this.totalPassing = builder.totalPassing;
+        this.totalShotStopping = builder.totalShotStopping;
+        this.totalPhysicality = builder.totalPhysicality;
+        this.totalSpeed = builder.totalSpeed;
     }
+
     public Team() {
         this.teamRank = 'A';
     }
-    private String name;
 
-    private char teamRank;
+    protected String name;
+
+    protected char teamRank;
 
     protected int totalShooting;
 
@@ -33,17 +41,12 @@ public class Team {
 
     private int goalsAgainst = 0;
 
-
     @Override
     public String toString() {
         return "Team{" +
                 "name='" + name + '\'' +
                 ", teamRank=" + teamRank +
                 '}' + "\r\n";
-    }
-
-    public void setTeamRank(char rank) {
-        this.teamRank = rank;
     }
 
     public String getName() {
@@ -54,19 +57,8 @@ public class Team {
         this.name = name;
     }
 
-
     char getTeamRank() {
         return this.teamRank;
-    }
-
-    public void setTeamStats() {
-        int rankBaseRating = RankUtil.getRankValue(this.teamRank);
-        this.totalShooting = 3 * rankBaseRating;
-        this.totalDefending = 3 * rankBaseRating;
-        this.totalPassing = 4 * rankBaseRating;
-        this.totalShotStopping = 1 * rankBaseRating;
-        this.totalPhysicality = 10 * rankBaseRating;
-        this.totalSpeed = 10 * rankBaseRating;
     }
 
     public void printTeamStats() {
@@ -81,12 +73,8 @@ public class Team {
         System.out.println("Total Speed: " + this.totalSpeed);
     }
 
-
     int getPoints() {
         return this.points;
     }
-
-
-
 
 }

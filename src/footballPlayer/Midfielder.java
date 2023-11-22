@@ -9,13 +9,41 @@ public class Midfielder extends FootballPlayer {
 
     private int speed;
 
-    public Midfielder(char rank) {
-        super(rank);
+    public static class Builder extends FootballPlayer.Builder<Builder> {
+        private int passing;
+        private int physicality;
+        private int speed;
+
+        public Builder setRandomStats() {
+            int rankBaseRating = RankUtil.getRankValue(this.rank);
+            this.passing = (int) (Math.random() * 10) + rankBaseRating;
+            this.physicality = (int) (Math.random() * 10) + rankBaseRating;
+            this.speed = (int) (Math.random() * 10) + rankBaseRating;
+            return this;
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+
+        @Override
+        public Midfielder build() {
+            return new Midfielder(this);
+        }
+    }
+
+    public Midfielder(Builder builder) {
+        super(builder);
+        this.passing = builder.passing;
+        this.physicality = builder.physicality;
+        this.speed = builder.speed;
     }
 
     public int getPhysicality() {
         return this.physicality;
     }
+
     public int getSpeed() {
         return this.speed;
     }
@@ -23,6 +51,7 @@ public class Midfielder extends FootballPlayer {
     public int getPassing() {
         return this.passing;
     }
+
     public void setRandomStats() {
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.passing = (int) (Math.random() * 10) + rankBaseRating;
