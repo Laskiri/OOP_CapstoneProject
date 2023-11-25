@@ -14,6 +14,7 @@ public class MainTeamHelper {
 
     public void setupTeam() {
         UserInterface ui = new UserInterface();
+        System.out.println(team);
         ui.printAllFootballPlayers(this.team);
         Formation formation = ui.getFormation(this.team);
         this.team.setFormation(formation);
