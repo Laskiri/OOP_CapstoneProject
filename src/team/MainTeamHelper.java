@@ -5,20 +5,26 @@ import footballPlayer.*;
 import utils.UserInterface;
 import java.util.*;
 
-public class MainTeamHelper {
+public class MainTeamHelper implements Observer {
+
     private MainTeam team;
 
     public MainTeamHelper(MainTeam team) {
         this.team = team;
     }
 
+    @Override
+    public void update(Observable observable) {
+        System.out.println("update in MainTeamHelper");
+        makeBestStartingEleven(this.team.getFormation(), this.team.getFootballPlayers());
+    }
+
     public void setupTeam() {
         UserInterface ui = new UserInterface();
         ui.printAllFootballPlayers(this.team);
         Formation formation = ui.getFormation(this.team);
-        this.team.setFormation(formation);
-        this.makeBestStartingEleven();
-        this.team.updateTeamStats();
+        this.team.updateFormation(formation);
+
     }
 
     public FootballPlayer generateStriker(char rank) {
@@ -58,13 +64,28 @@ public class MainTeamHelper {
         return goalkeeper;
     }
 
-    public void makeBestStartingEleven() {
+    public FootballPlayer generatePlayer(char rank, String position) {
+        switch (position) {
+            case "Striker":
+                return generateStriker(rank);
+            case "Midfielder":
+                return generateMidfielder(rank);
+            case "Defender":
+                return generateDefender(rank);
+            case "Goalkeeper":
+                return generateGoalkeeper(rank);
+            default:
+                throw new IllegalArgumentException("Invalid position: " + position);
+        }
+    }
 
-        // Get the position-specific lists from the StartingElevenSquad
-        List<Goalkeeper> goalkeepers = this.team.getFootballPlayers().getGoalkeepers();
-        List<Defender> defenders = this.team.getFootballPlayers().getDefenders();
-        List<Midfielder> midfielders = this.team.getFootballPlayers().getMidfielders();
-        List<Striker> strikers = this.team.getFootballPlayers().getStrikers();
+    public void makeBestStartingEleven(Formation formation, FootballPlayersSquad footballPlayers) {
+
+        // Get the position-specific lists from the footballPlayer squad
+        List<Goalkeeper> goalkeepers = footballPlayers.getGoalkeepers();
+        List<Defender> defenders = footballPlayers.getDefenders();
+        List<Midfielder> midfielders = footballPlayers.getMidfielders();
+        List<Striker> strikers = footballPlayers.getStrikers();
 
         // Sort each position list by total stats in descending order
         defenders.sort(Comparator.comparingInt(FootballPlayer::totalStats).reversed());
@@ -73,22 +94,12 @@ public class MainTeamHelper {
         goalkeepers.sort(Comparator.comparingInt(FootballPlayer::totalStats).reversed());
 
         // Fill the starting eleven with the best players from each position
-        int index = 0;
+        List<Goalkeeper> bestGoalkeepers = new ArrayList<>(goalkeepers.subList(0, 1));
+        List<Defender> bestDefenders = new ArrayList<>(defenders.subList(0, formation.getDefendersCount()));
+        List<Midfielder> bestMidfielders = new ArrayList<>(midfielders.subList(0, formation.getMidfieldersCount()));
+        List<Striker> bestStrikers = new ArrayList<>(strikers.subList(0, formation.getStrikersCount()));
 
-        this.team.changeStartingPlayer(index++, goalkeepers.get(0));
-        for (int i = 0; i < this.team.getFormation().getDefendersCount(); i++) {
-            this.team.changeStartingPlayer(index++, defenders.get(i));
-        }
-        for (int i = 0; i < this.team.getFormation().getMidfieldersCount(); i++) {
-            this.team.changeStartingPlayer(index++, midfielders.get(i));
-        }
-        for (int i = 0; i < this.team.getFormation().getStrikersCount(); i++) {
-            this.team.changeStartingPlayer(index++, strikers.get(i));
-        }
-
-        System.out.println("We have made the best starting eleven for you, here it is:");
-        UserInterface ui = new UserInterface();
-        ui.printStartingEleven(this.team);
+        this.team.updateStartingEleven(bestGoalkeepers, bestDefenders, bestMidfielders, bestStrikers);
     }
 
 }

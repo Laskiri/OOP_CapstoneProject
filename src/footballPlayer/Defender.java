@@ -38,6 +38,17 @@ public class Defender extends FootballPlayer {
         this.speed = builder.speed;
     }
 
+    @Override
+    public String toString() {
+        return "Defender{" +
+                "name=" + getName() +
+                ", rank=" + getRank() +
+                ", defending=" + defending +
+                ", physicality=" + physicality +
+                ", speed=" + speed +
+                '}';
+    }
+
     public int getPhysicality() {
         return this.physicality;
     }

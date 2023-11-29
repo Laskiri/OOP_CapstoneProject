@@ -1,14 +1,63 @@
 package team;
 
-public class Formation {
-    private int goalkeeperCount = 1;
-    private int defendersCount = 4;
-    private int midfieldersCount = 4;
-    private int strikersCount = 4;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Formation implements Observer, Observable {
+    private int goalkeeperCount;
+    private int defendersCount;
+    private int midfieldersCount;
+    private int strikersCount;
+
+    private List<Observer> observers = new ArrayList<>();
 
     public Formation(int defendersCount, int midfieldersCount, int strikersCount) {
+        this.goalkeeperCount = 1;
         this.defendersCount = defendersCount;
         this.midfieldersCount = midfieldersCount;
+        this.strikersCount = strikersCount;
+    }
+
+    @Override
+    public void update(Observable observable) {
+        System.out.println("update in Formation");
+        if (observable instanceof StartingElevenSquad) {
+            Squad squad = (Squad) observable;
+            this.defendersCount = squad.getDefenders().size();
+            this.midfieldersCount = squad.getMidfielders().size();
+            this.strikersCount = squad.getStrikers().size();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Formation{" +
+                "goalkeeperCount=" + goalkeeperCount +
+                ", defendersCount=" + defendersCount +
+                ", midfieldersCount=" + midfieldersCount +
+                ", strikersCount=" + strikersCount +
+                '}';
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update(this);
+        }
+    }
+
+    public void setDefendersCount(int defendersCount) {
+        this.defendersCount = defendersCount;
+    }
+
+    public void setMidfieldersCount(int midfieldersCount) {
+        this.midfieldersCount = midfieldersCount;
+    }
+
+    public void setStrikersCount(int strikersCount) {
         this.strikersCount = strikersCount;
     }
 
@@ -26,30 +75,6 @@ public class Formation {
 
     public int getGoalkeeperCount() {
         return goalkeeperCount;
-    }
-
-    public void increaseDefenders() {
-        this.defendersCount++;
-    }
-
-    public void increaseMidfielders() {
-        this.midfieldersCount++;
-    }
-
-    public void increaseStrikers() {
-        this.strikersCount++;
-    }
-
-    public void decreaseDefenders() {
-        this.defendersCount--;
-    }
-
-    public void decreaseMidfielders() {
-        this.midfieldersCount--;
-    }
-
-    public void decreaseStrikers() {
-        this.strikersCount--;
     }
 
 }

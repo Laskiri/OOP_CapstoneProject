@@ -6,11 +6,19 @@ import java.util.List;
 import footballPlayer.*;
 
 public abstract class Squad {
-    private List<FootballPlayer> allPlayers = new ArrayList<>();
-    private List<Goalkeeper> goalkeepers = new ArrayList<>();
-    private List<Defender> defenders = new ArrayList<>();
-    private List<Midfielder> midfielders = new ArrayList<>();
-    private List<Striker> strikers = new ArrayList<>();
+    private List<FootballPlayer> allPlayers;
+    private List<Goalkeeper> goalkeepers;
+    private List<Defender> defenders;
+    private List<Midfielder> midfielders;
+    private List<Striker> strikers;
+
+    public Squad() {
+        this.allPlayers = new ArrayList<>();
+        this.goalkeepers = new ArrayList<>();
+        this.defenders = new ArrayList<>();
+        this.midfielders = new ArrayList<>();
+        this.strikers = new ArrayList<>();
+    }
 
     public List<FootballPlayer> getAllPlayers() {
         return allPlayers;
@@ -30,6 +38,26 @@ public abstract class Squad {
 
     public List<Striker> getStrikers() {
         return strikers;
+    }
+
+    protected void setGoalkeepers(List<Goalkeeper> goalkeepers) {
+        this.goalkeepers = goalkeepers;
+    }
+
+    protected void setDefenders(List<Defender> defenders) {
+        this.defenders = defenders;
+    }
+
+    protected void setMidfielders(List<Midfielder> midfielders) {
+        this.midfielders = midfielders;
+    }
+
+    protected void setStrikers(List<Striker> strikers) {
+        this.strikers = strikers;
+    }
+
+    protected void setAllPlayers(List<FootballPlayer> allPlayers) {
+        this.allPlayers = allPlayers;
     }
 
 }

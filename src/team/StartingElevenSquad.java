@@ -1,50 +1,71 @@
 package team;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import footballPlayer.Defender;
 import footballPlayer.FootballPlayer;
 import footballPlayer.Goalkeeper;
 import footballPlayer.Midfielder;
 import footballPlayer.Striker;
 
-public class StartingElevenSquad extends Squad {
-    private Formation formation;
+public class StartingElevenSquad extends Squad implements Observable {
 
-    public StartingElevenSquad(Formation formation, FootballPlayersSquad footballPlayers) {
-        this.formation = formation;
+    private List<Observer> observers = new ArrayList<>();
 
-        // Fill the starting eleven with players based on default formation
-        this.getGoalkeepers().add(footballPlayers.getGoalkeepers().get(0));
-        this.getAllPlayers().add(footballPlayers.getGoalkeepers().get(0));
-        for (int i = 0; i < formation.getDefendersCount(); i++) {
-            this.getDefenders().add(footballPlayers.getDefenders().get(i));
-            this.getAllPlayers().add(footballPlayers.getDefenders().get(i));
+    @Override
+    public String toString() {
+        return "StartingElevenSquad{" +
+                "goalkeepers=" + this.getGoalkeepers() +
+                ", defenders=" + this.getDefenders() +
+                ", midfielders=" + this.getMidfielders() +
+                ", strikers=" + this.getStrikers() +
+                '}';
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update(this);
         }
-        for (int i = 0; i < formation.getMidfieldersCount(); i++) {
-            this.getMidfielders().add(footballPlayers.getMidfielders().get(i));
-            this.getAllPlayers().add(footballPlayers.getMidfielders().get(i));
-        }
-        for (int i = 0; i < formation.getStrikersCount(); i++) {
-            this.getStrikers().add(footballPlayers.getStrikers().get(i));
-            this.getAllPlayers().add(footballPlayers.getStrikers().get(i));
-        }
+    }
+
+    protected void updateStartingPlayerList() {
+        List<FootballPlayer> allPlayers = new ArrayList<>();
+        allPlayers.addAll(this.getGoalkeepers());
+        allPlayers.addAll(this.getDefenders());
+        allPlayers.addAll(this.getMidfielders());
+        allPlayers.addAll(this.getStrikers());
+        this.setAllPlayers(allPlayers);
+        notifyObservers();
     }
 
     public void changePlayer(int i, FootballPlayer player) {
 
         FootballPlayer oldPlayer = this.getAllPlayers().get(i);
 
+        if (oldPlayer instanceof Goalkeeper && !(player instanceof Goalkeeper)) {
+            throw new IllegalArgumentException("You can only replace a goalkeeper with another goalkeeper.");
+        }
+        if (!(oldPlayer instanceof Goalkeeper) && player instanceof Goalkeeper) {
+            throw new IllegalArgumentException("You can not replace a non-goalkeeper with another a goalkeeper.");
+        }
+
         // Remove old player from position-specific list and update formation
         if (oldPlayer instanceof Goalkeeper) {
             this.getGoalkeepers().remove(oldPlayer);
         } else if (oldPlayer instanceof Defender) {
             this.getDefenders().remove(oldPlayer);
-            formation.decreaseDefenders();
+
         } else if (oldPlayer instanceof Midfielder) {
             this.getMidfielders().remove(oldPlayer);
-            formation.decreaseMidfielders();
+
         } else if (oldPlayer instanceof Striker) {
             this.getStrikers().remove(oldPlayer);
-            formation.decreaseStrikers();
+
         }
 
         // Update player in allPlayers list
@@ -55,13 +76,12 @@ public class StartingElevenSquad extends Squad {
             this.getGoalkeepers().add((Goalkeeper) player);
         } else if (player instanceof Defender) {
             this.getDefenders().add((Defender) player);
-            formation.increaseDefenders();
         } else if (player instanceof Midfielder) {
             this.getMidfielders().add((Midfielder) player);
-            formation.increaseMidfielders();
+
         } else if (player instanceof Striker) {
             this.getStrikers().add((Striker) player);
-            formation.increaseStrikers();
         }
+        notifyObservers();
     }
 }

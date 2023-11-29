@@ -1,5 +1,7 @@
 package team;
 
+import java.util.List;
+
 import footballPlayer.Defender;
 import footballPlayer.FootballPlayer;
 import footballPlayer.Goalkeeper;
@@ -20,4 +22,15 @@ public class FootballPlayersSquad extends Squad {
             this.getStrikers().add((Striker) player);
         }
     }
+
+    @Override
+    public String toString() {
+        return "FootballPlayersSquad{" +
+                "goalkeepers=" + this.getGoalkeepers() +
+                ", defenders=" + this.getDefenders() +
+                ", midfielders=" + this.getMidfielders() +
+                ", strikers=" + this.getStrikers() +
+                '}';
+    }
+
 }

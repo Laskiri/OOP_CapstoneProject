@@ -40,6 +40,17 @@ public class Striker extends FootballPlayer {
         this.speed = builder.speed;
     }
 
+    @Override
+    public String toString() {
+        return "Striker{" +
+                "rank=" + getRank() +
+                "name=" + getName() +
+                ", shooting=" + shooting +
+                ", physicality=" + physicality +
+                ", speed=" + speed +
+                '}';
+    }
+
     public void printPlayer() {
         System.out.print(this.getClass().getSimpleName() + " - ");
         System.out.print(this.getName() + " has the following stats: ");

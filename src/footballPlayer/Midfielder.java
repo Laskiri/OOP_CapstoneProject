@@ -40,6 +40,17 @@ public class Midfielder extends FootballPlayer {
         this.speed = builder.speed;
     }
 
+    @Override
+    public String toString() {
+        return "Midfielder{" +
+                "rank=" + getRank() +
+                "name=" + getName() +
+                ", passing=" + passing +
+                ", physicality=" + physicality +
+                ", speed=" + speed +
+                '}';
+    }
+
     public int getPhysicality() {
         return this.physicality;
     }

@@ -7,6 +7,7 @@ public class Team {
     public Team(TeamBuilder builder) {
         this.name = builder.name;
         this.teamRank = builder.teamRank;
+        this.teamNumber = builder.teamNumber;
         this.totalShooting = builder.totalShooting;
         this.totalDefending = builder.totalDefending;
         this.totalPassing = builder.totalPassing;
@@ -16,8 +17,9 @@ public class Team {
     }
 
     public Team() {
-        this.teamRank = 'A';
     }
+
+    private int teamNumber;
 
     protected String name;
 
@@ -35,17 +37,18 @@ public class Team {
 
     protected int totalSpeed;
 
-    private int points = 0;
-
-    private int goalsFor = 0;
-
-    private int goalsAgainst = 0;
-
     @Override
     public String toString() {
         return "Team{" +
-                "name='" + name + '\'' +
+                "teamNumber=" + teamNumber +
+                ", name='" + name + '\'' +
                 ", teamRank=" + teamRank +
+                ", totalShooting=" + totalShooting +
+                ", totalDefending=" + totalDefending +
+                ", totalPassing=" + totalPassing +
+                ", totalShotStopping=" + totalShotStopping +
+                ", totalPhysicality=" + totalPhysicality +
+                ", totalSpeed=" + totalSpeed +
                 '}' + "\r\n";
     }
 
@@ -73,8 +76,7 @@ public class Team {
         System.out.println("Total Speed: " + this.totalSpeed);
     }
 
-    int getPoints() {
-        return this.points;
+    public int getTeamNumber() {
+        return this.teamNumber;
     }
-
 }

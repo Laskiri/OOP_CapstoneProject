@@ -17,15 +17,20 @@ public class LeagueBuilder {
     public LeagueBuilder generateTeams(int teamAmount) {
         this.teams = new Team[teamAmount];
         for (int i = 0; i < teamAmount; i++) {
-            this.teams[i] = new TeamBuilder().setRandomName().setRandomRank().setTeamStats().build();
+            this.teams[i] = new TeamBuilder().setTeamNumber(i).setRandomName().setRandomRank().setTeamStats().build();
         }
         return this;
     }
 
     public LeagueBuilder selectMainTeam() {
         UserInterface ui = new UserInterface();
-        ui.printTeams(this.teams);
+        for (Team team : teams) {
+            System.out.println(team.toString());
+        }
+
         int teamNumber = ui.getTeamChoice(this.teams);
+
+        System.out.println(this.teams[teamNumber].toString());
 
         this.chosenTeam = new MainTeamEnhancer(this.teams[teamNumber])
                 .generateFirst20Players()
@@ -34,7 +39,7 @@ public class LeagueBuilder {
         MainTeamHelper mainTeamHelper = new MainTeamHelper(this.chosenTeam);
         mainTeamHelper.setupTeam();
         this.teams[teamNumber] = this.chosenTeam;
-        ui.chosenTeamMessage(this.chosenTeam.getName());
+
         return this;
     }
 

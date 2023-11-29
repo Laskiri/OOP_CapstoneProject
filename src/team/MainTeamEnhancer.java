@@ -8,32 +8,24 @@ public class MainTeamEnhancer {
         // Generate starting squad for the team
         this.mainTeam = new MainTeam();
         this.mainTeam.setTeamName(team.getName());
-
+        this.mainTeam.setTeamRank(team.getTeamRank());
         this.mainTeamHelper = new MainTeamHelper(this.mainTeam);
     }
 
     public MainTeamEnhancer generateFirst20Players() {
-        int i = 0;
-        while (i < 6) {
-            this.mainTeam.addFootballPlayer(i++, this.mainTeamHelper.generateStriker(this.mainTeam.getTeamRank()));
+        String[] positions = { "Striker", "Striker", "Striker", "Striker", "Striker", "Striker", "Midfielder",
+                "Midfielder", "Midfielder", "Midfielder", "Midfielder", "Midfielder", "Defender", "Defender",
+                "Defender", "Defender", "Defender", "Defender", "Goalkeeper", "Goalkeeper" };
+
+        for (int i = 0; i < positions.length; i++) {
+            this.mainTeam.addFootballPlayer(i,
+                    this.mainTeamHelper.generatePlayer(this.mainTeam.getTeamRank(), positions[i]));
         }
-        while (i < 12) {
-            this.mainTeam.addFootballPlayer(i++, this.mainTeamHelper.generateMidfielder(this.mainTeam.getTeamRank()));
-        }
-        while (i < 18) {
-            this.mainTeam.addFootballPlayer(i++, this.mainTeamHelper.generateDefender(this.mainTeam.getTeamRank()));
-        }
-        while (i < 20) {
-            this.mainTeam.addFootballPlayer(i++, this.mainTeamHelper.generateGoalkeeper(this.mainTeam.getTeamRank()));
-        }
-        // Add your logic for generating the first 20 players here
         return this;
     }
 
     public MainTeamEnhancer initializeStartingEleven() {
-        StartingElevenSquad startingEleven = new StartingElevenSquad(this.mainTeam.getFormation(),
-                this.mainTeam.getFootballPlayers());
-        this.mainTeam.setStartingEleven(startingEleven);
+        mainTeamHelper.makeBestStartingEleven(this.mainTeam.getFormation(), this.mainTeam.getFootballPlayers());
         return this;
     }
 

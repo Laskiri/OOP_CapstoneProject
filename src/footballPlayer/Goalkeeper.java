@@ -31,6 +31,15 @@ public class Goalkeeper extends FootballPlayer {
         this.shotStopping = builder.shotStopping;
     }
 
+    @Override
+    public String toString() {
+        return "Goalkeeper{" +
+                "rank=" + getRank() +
+                "name=" + getName() +
+                ", shotStopping=" + shotStopping +
+                '}';
+    }
+
     public void setRandomStats() {
         int rankBaseRating = RankUtil.getRankValue(this.getRank());
         this.shotStopping = (int) (Math.random() * 10) + rankBaseRating;

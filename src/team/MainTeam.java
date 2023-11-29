@@ -1,18 +1,29 @@
 package team;
 
+import java.util.List;
+
 import footballPlayer.*;
 
-public class MainTeam extends Team {
-    private FootballPlayersSquad footballPlayers = new FootballPlayersSquad();
-    private Formation formation = new Formation(4, 4, 2);
-    private StartingElevenSquad startingEleven = null;
+public class MainTeam extends Team implements Observer {
+    private FootballPlayersSquad footballPlayers;
+    private Formation formation;
+    private StartingElevenSquad startingEleven;
+    MainTeamHelper mainTeamHelper;
 
     public MainTeam() {
-        this.teamRank = 'A';
+        footballPlayers = new FootballPlayersSquad();
+        formation = new Formation(4, 4, 2);
+        startingEleven = new StartingElevenSquad();
+        mainTeamHelper = new MainTeamHelper(this);
+        startingEleven.addObserver(formation);
+        startingEleven.addObserver(this);
+        formation.addObserver(mainTeamHelper);
     }
 
-    public MainTeam(char teamRank) {
-        this.teamRank = teamRank;
+    @Override
+    public void update(Observable observable) {
+        System.out.println("update in MainTeam");
+        updateTeamStats();
     }
 
     @Override
@@ -27,16 +38,28 @@ public class MainTeam extends Team {
         this.footballPlayers.addPlayer(player);
     }
 
-    public void setStartingEleven(StartingElevenSquad startingEleven) {
-        this.startingEleven = startingEleven;
-    }
-
     public Formation getFormation() {
         return formation;
     }
 
-    public void setFormation(Formation formation) {
-        this.formation = formation;
+    public void setTeamRank(char teamRank) {
+        this.teamRank = teamRank;
+    }
+
+    public void updateFormation(Formation formation) {
+        this.formation.setDefendersCount(formation.getDefendersCount());
+        this.formation.setMidfieldersCount(formation.getMidfieldersCount());
+        this.formation.setStrikersCount(formation.getStrikersCount());
+        this.formation.notifyObservers();
+    }
+
+    public void updateStartingEleven(List<Goalkeeper> goalkeepers, List<Defender> defenders,
+            List<Midfielder> midfielders, List<Striker> strikers) {
+        this.startingEleven.setGoalkeepers(goalkeepers);
+        this.startingEleven.setDefenders(defenders);
+        this.startingEleven.setMidfielders(midfielders);
+        this.startingEleven.setStrikers(strikers);
+        this.startingEleven.updateStartingPlayerList();
     }
 
     public FootballPlayersSquad getFootballPlayers() {

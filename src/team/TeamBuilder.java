@@ -5,6 +5,7 @@ import utils.RandomGenerationUtil;
 import utils.RankUtil;
 
 public class TeamBuilder {
+    int teamNumber;
     String name;
     char teamRank;
     int totalShooting;
@@ -39,6 +40,11 @@ public class TeamBuilder {
 
     public TeamBuilder setRank(char rank) {
         this.teamRank = rank;
+        return this;
+    }
+
+    public TeamBuilder setTeamNumber(int teamNumber) {
+        this.teamNumber = teamNumber;
         return this;
     }
 
