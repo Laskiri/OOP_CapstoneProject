@@ -2,6 +2,7 @@ package utils;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.sun.tools.javac.Main;
 
@@ -31,6 +32,11 @@ public class UserInterface {
         }
     }
 
+    public void printTeams(Set<Team> teams) {
+        for (Team team : teams) {
+            System.out.println(team);
+        }
+    }
     public void printTeamsStats(Team[] teams) {
         for (int i = 0; i < 12; i++) {
             teams[i].printTeamStats();
@@ -70,6 +76,8 @@ public class UserInterface {
             }
         }
     }
+
+
 
     public void printStartingEleven(MainTeam team) {
         System.out.println("The starting eleven is: ");

@@ -21,6 +21,7 @@ public class MainTeamHelper implements Observer {
 
     public void setupTeam() {
         UserInterface ui = new UserInterface();
+        System.out.println(team);
         ui.printAllFootballPlayers(this.team);
         Formation formation = ui.getFormation(this.team);
         this.team.updateFormation(formation);
