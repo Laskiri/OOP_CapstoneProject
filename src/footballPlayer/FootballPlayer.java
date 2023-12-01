@@ -35,9 +35,6 @@ public abstract class FootballPlayer {
     public void setRandomStats() {
     }
 
-    public void printPlayer() {
-    }
-
     public int totalStats() {
         return 0;
     }
