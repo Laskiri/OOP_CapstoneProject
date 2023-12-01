@@ -19,15 +19,6 @@ public class MainTeamHelper implements Observer {
         makeBestStartingEleven(this.team.getFormation(), this.team.getFootballPlayers());
     }
 
-    public void setupTeam() {
-        UserInterface ui = new UserInterface();
-        System.out.println(team);
-        ui.printAllFootballPlayers(this.team);
-        Formation formation = ui.getFormation(this.team);
-        this.team.updateFormation(formation);
-
-    }
-
     public FootballPlayer generateStriker(char rank) {
         FootballPlayer striker = new Striker.Builder()
                 .setRandomName()

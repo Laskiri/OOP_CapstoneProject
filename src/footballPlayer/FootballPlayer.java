@@ -6,7 +6,6 @@ import utils.RandomGenerationUtil;
 public abstract class FootballPlayer {
 
     private String name;
-
     private char rank;
 
     public static abstract class Builder<T extends Builder<T>> {

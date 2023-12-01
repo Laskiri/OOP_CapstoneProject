@@ -16,9 +16,7 @@ public class FootballSimulator {
                 .generateTeams(12)
                 .selectMainTeam()
                 .build();
-        System.out.println(league.toString());
-
-        ui.printTeamsStats(league.getTeams());
+        ui.teamSetup(league.getChosenTeam());
 
         // Next things to do;
         /*

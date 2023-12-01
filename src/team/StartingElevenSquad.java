@@ -15,12 +15,13 @@ public class StartingElevenSquad extends Squad implements Observable {
 
     @Override
     public String toString() {
-        return "StartingElevenSquad{" +
-                "goalkeepers=" + this.getGoalkeepers() +
-                ", defenders=" + this.getDefenders() +
-                ", midfielders=" + this.getMidfielders() +
-                ", strikers=" + this.getStrikers() +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("StartingElevenSquad{");
+        sb.append("allPlayers=");
+        for (int i = 0; i < this.getAllPlayers().size(); i++) {
+            sb.append(i).append(": ").append(this.getAllPlayers().get(i)).append(", ");
+        }
+        return sb.toString();
     }
 
     public void addObserver(Observer observer) {
@@ -44,6 +45,10 @@ public class StartingElevenSquad extends Squad implements Observable {
     }
 
     public void changePlayer(int i, FootballPlayer player) {
+
+        if (getAllPlayers().contains(player)) {
+            throw new IllegalArgumentException("Player already in starting eleven.");
+        }
 
         FootballPlayer oldPlayer = this.getAllPlayers().get(i);
 

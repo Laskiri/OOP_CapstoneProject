@@ -30,15 +30,14 @@ public class LeagueBuilder {
 
         int teamNumber = ui.getTeamChoice(this.teams);
 
-        System.out.println(this.teams[teamNumber].toString());
-
         this.chosenTeam = new MainTeamEnhancer(this.teams[teamNumber])
                 .generateFirst20Players()
                 .initializeStartingEleven()
                 .getEnhancedTeam();
-        MainTeamHelper mainTeamHelper = new MainTeamHelper(this.chosenTeam);
-        mainTeamHelper.setupTeam();
+
         this.teams[teamNumber] = this.chosenTeam;
+
+        System.out.println(this.teams[teamNumber].toString());
 
         return this;
     }

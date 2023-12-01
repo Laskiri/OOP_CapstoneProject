@@ -8,7 +8,7 @@ public class MainTeam extends Team implements Observer {
     private FootballPlayersSquad footballPlayers;
     private Formation formation;
     private StartingElevenSquad startingEleven;
-    MainTeamHelper mainTeamHelper;
+    private MainTeamHelper mainTeamHelper;
 
     public MainTeam() {
         footballPlayers = new FootballPlayersSquad();
@@ -29,8 +29,18 @@ public class MainTeam extends Team implements Observer {
     @Override
     public String toString() {
         return "MainTeam{" +
-                "name='" + this.getName() + '\'' +
-                ", teamRank=" + this.getTeamRank() +
+                "teamNumber=" + teamNumber +
+                ", name='" + name + '\'' +
+                ", teamRank=" + teamRank +
+                ", totalShooting=" + totalShooting +
+                ", totalDefending=" + totalDefending +
+                ", totalPassing=" + totalPassing +
+                ", totalShotStopping=" + totalShotStopping +
+                ", totalPhysicality=" + totalPhysicality +
+                ", totalSpeed=" + totalSpeed +
+                ", footballPlayers=" + footballPlayers +
+                ", formation=" + formation +
+                ", startingEleven=" + startingEleven +
                 '}' + "\r\n";
     }
 
@@ -42,8 +52,8 @@ public class MainTeam extends Team implements Observer {
         return formation;
     }
 
-    public void setTeamRank(char teamRank) {
-        this.teamRank = teamRank;
+    public void setTeamName(String name) {
+        this.name = name;
     }
 
     public void updateFormation(Formation formation) {

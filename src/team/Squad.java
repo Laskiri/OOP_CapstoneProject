@@ -60,4 +60,8 @@ public abstract class Squad {
         this.allPlayers = allPlayers;
     }
 
+    public FootballPlayer getFootballPlayer(int number) {
+        return this.allPlayers.get(number);
+    }
+
 }

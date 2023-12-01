@@ -20,13 +20,14 @@ public class Formation implements Observer, Observable {
 
     @Override
     public void update(Observable observable) {
-        System.out.println("update in Formation");
+        System.out.println("update in Formation:");
         if (observable instanceof StartingElevenSquad) {
             Squad squad = (Squad) observable;
             this.defendersCount = squad.getDefenders().size();
             this.midfieldersCount = squad.getMidfielders().size();
             this.strikersCount = squad.getStrikers().size();
         }
+        System.out.println(this.toString() + "\r\n");
     }
 
     @Override

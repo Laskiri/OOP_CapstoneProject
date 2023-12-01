@@ -25,12 +25,12 @@ public class FootballPlayersSquad extends Squad {
 
     @Override
     public String toString() {
-        return "FootballPlayersSquad{" +
-                "goalkeepers=" + this.getGoalkeepers() +
-                ", defenders=" + this.getDefenders() +
-                ", midfielders=" + this.getMidfielders() +
-                ", strikers=" + this.getStrikers() +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("FootballPlayersSquad{");
+        sb.append("allPlayers=");
+        for (int i = 0; i < this.getAllPlayers().size(); i++) {
+            sb.append(i).append(": ").append(this.getAllPlayers().get(i)).append(", ");
+        }
+        return sb.toString();
     }
-
 }

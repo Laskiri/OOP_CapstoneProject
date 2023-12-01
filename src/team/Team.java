@@ -19,7 +19,7 @@ public class Team {
     public Team() {
     }
 
-    private int teamNumber;
+    protected int teamNumber;
 
     protected String name;
 
@@ -56,11 +56,7 @@ public class Team {
         return this.name;
     }
 
-    public void setTeamName(String name) {
-        this.name = name;
-    }
-
-    char getTeamRank() {
+    public char getTeamRank() {
         return this.teamRank;
     }
 

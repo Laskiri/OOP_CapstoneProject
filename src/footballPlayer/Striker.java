@@ -44,7 +44,7 @@ public class Striker extends FootballPlayer {
     public String toString() {
         return "Striker{" +
                 "rank=" + getRank() +
-                "name=" + getName() +
+                ", name=" + getName() +
                 ", shooting=" + shooting +
                 ", physicality=" + physicality +
                 ", speed=" + speed +

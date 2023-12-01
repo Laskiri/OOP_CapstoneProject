@@ -35,7 +35,7 @@ public class Goalkeeper extends FootballPlayer {
     public String toString() {
         return "Goalkeeper{" +
                 "rank=" + getRank() +
-                "name=" + getName() +
+                ", name=" + getName() +
                 ", shotStopping=" + shotStopping +
                 '}';
     }
