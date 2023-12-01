@@ -11,14 +11,32 @@ public class LeagueBuilder {
     Team[] teams;
 
     public LeagueBuilder setLeagueName(String name) {
-        this.name = name;
+        String newName = name.trim();
+        if (name != null && !newName.isEmpty()) {
+            this.name = newName;
+        }
         return this;
     }
 
     public LeagueBuilder generateTeams(int teamAmount) {
-        this.teams = new Team[teamAmount];
+
+        if (teamAmount < 8) {
+            throw new IllegalArgumentException("League must have at least 2 teams");
+        }
+
+        if (teamAmount > 20) {
+            throw new IllegalArgumentException("League must have at most 20 teams");
+        }
+
+        if (teamAmount % 2 != 0) {
+            throw new IllegalArgumentException("League must have an even number of teams");
+        }
+
+        this.teams = new Team[(int) teamAmount];
         for (int i = 0; i < teamAmount; i++) {
-            this.teams[i] = new TeamBuilder().setTeamNumber(i).setRandomName().setRandomRank().setTeamStats().build();
+            this.teams[i] = new TeamBuilder().setTeamNumber(i).setRandomName().setRandomRank().setTeamStats()
+                    .build();
+
         }
         return this;
     }
