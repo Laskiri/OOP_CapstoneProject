@@ -1,6 +1,4 @@
-package team;
-
-import java.util.List;
+package team.squad;
 
 import footballPlayer.Defender;
 import footballPlayer.FootballPlayer;

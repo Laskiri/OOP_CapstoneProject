@@ -1,4 +1,4 @@
-package team;
+package team.squad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import footballPlayer.FootballPlayer;
 import footballPlayer.Goalkeeper;
 import footballPlayer.Midfielder;
 import footballPlayer.Striker;
+import observer.Observable;
+import observer.Observer;
 
 public class StartingElevenSquad extends Squad implements Observable {
 
@@ -34,14 +36,14 @@ public class StartingElevenSquad extends Squad implements Observable {
         }
     }
 
-    protected void updateStartingPlayerList() {
+    public void updateStartingPlayerList() {
         List<FootballPlayer> allPlayers = new ArrayList<>();
         allPlayers.addAll(this.getGoalkeepers());
         allPlayers.addAll(this.getDefenders());
         allPlayers.addAll(this.getMidfielders());
         allPlayers.addAll(this.getStrikers());
         this.setAllPlayers(allPlayers);
-        notifyObservers();
+
     }
 
     public void changePlayer(int i, FootballPlayer player) {
@@ -87,6 +89,8 @@ public class StartingElevenSquad extends Squad implements Observable {
         } else if (player instanceof Striker) {
             this.getStrikers().add((Striker) player);
         }
+
+        System.out.println("Succuesfully changed" + oldPlayer.getName() + " with " + player.getName() + ".");
         notifyObservers();
     }
 }

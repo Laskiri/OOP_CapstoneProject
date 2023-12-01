@@ -1,7 +1,12 @@
-package team;
+package team.formation;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import observer.Observable;
+import observer.Observer;
+import team.squad.Squad;
+import team.squad.StartingElevenSquad;
 
 public class Formation implements Observer, Observable {
     private int goalkeeperCount;

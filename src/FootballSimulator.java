@@ -1,8 +1,7 @@
 // This is the file in which the program will run
 
-import java.util.Scanner;
-
-import team.*;
+import league.League;
+import league.LeagueBuilder;
 import utils.UserInterface;
 
 public class FootballSimulator {

@@ -7,10 +7,10 @@ public class MainTeamEnhancer {
     public MainTeamEnhancer(Team team) {
         // Generate starting squad for the team
         this.mainTeam = new MainTeam();
-        this.mainTeam.name = team.name;
+        this.mainTeam.name = team.getName();
         this.mainTeam.teamNumber = team.teamNumber;
         this.mainTeam.teamRank = team.teamRank;
-        this.mainTeamHelper = new MainTeamHelper(this.mainTeam);
+        this.mainTeamHelper = mainTeam.getMainTeamHelper();
     }
 
     public MainTeamEnhancer generateFirst20Players() {

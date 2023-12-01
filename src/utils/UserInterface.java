@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.sun.tools.javac.Main;
-
 import footballPlayer.FootballPlayer;
 import team.*;
+import team.formation.Formation;
 
 public class UserInterface {
     private Scanner scanner;
@@ -51,7 +50,6 @@ public class UserInterface {
     }
 
     public Formation getFormation(MainTeam team) {
-        Scanner scanner = new Scanner(System.in);
         int defendersCount, midfieldersCount, strikersCount;
         while (true) {
             try {

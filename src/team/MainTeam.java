@@ -1,7 +1,12 @@
 package team;
 
 import java.util.List;
-
+import observer.Observer;
+import team.formation.Formation;
+import team.squad.FootballPlayersSquad;
+import team.squad.StartingElevenSquad;
+import team.teamStats.TeamStats;
+import observer.Observable;
 import footballPlayer.*;
 
 public class MainTeam extends Team implements Observer {
@@ -15,6 +20,8 @@ public class MainTeam extends Team implements Observer {
         formation = new Formation(4, 4, 2);
         startingEleven = new StartingElevenSquad();
         mainTeamHelper = new MainTeamHelper(this);
+
+        mainTeamHelper.addObserver(this);
         startingEleven.addObserver(formation);
         startingEleven.addObserver(this);
         formation.addObserver(mainTeamHelper);
@@ -24,23 +31,16 @@ public class MainTeam extends Team implements Observer {
     public void update(Observable observable) {
         System.out.println("update in MainTeam");
         updateTeamStats();
+        System.out.println(this.teamStats);
     }
 
     @Override
     public String toString() {
         return "MainTeam{" +
-                "teamNumber=" + teamNumber +
+                "teamNumber=" + this.teamNumber +
                 ", name='" + name + '\'' +
                 ", teamRank=" + teamRank +
-                ", totalShooting=" + totalShooting +
-                ", totalDefending=" + totalDefending +
-                ", totalPassing=" + totalPassing +
-                ", totalShotStopping=" + totalShotStopping +
-                ", totalPhysicality=" + totalPhysicality +
-                ", totalSpeed=" + totalSpeed +
-                ", footballPlayers=" + footballPlayers +
-                ", formation=" + formation +
-                ", startingEleven=" + startingEleven +
+                ", TeamStats=" + teamStats +
                 '}' + "\r\n";
     }
 
@@ -80,6 +80,10 @@ public class MainTeam extends Team implements Observer {
         return this.startingEleven;
     }
 
+    public MainTeamHelper getMainTeamHelper() {
+        return this.mainTeamHelper;
+    }
+
     public void changeStartingPlayer(int i, FootballPlayer player) {
         if (i >= 0 && i < 11) {
             startingEleven.changePlayer(i, player);
@@ -89,24 +93,29 @@ public class MainTeam extends Team implements Observer {
     }
 
     public void updateTeamStats() {
+
+        TeamStats stats = new TeamStats();
+
         for (FootballPlayer player : this.startingEleven.getAllPlayers()) {
             if (player instanceof Striker) {
-                this.totalShooting += player.getShooting();
-                this.totalPhysicality += player.getPhysicality();
-                this.totalSpeed += player.getSpeed();
+                stats.setTotalShooting(stats.getTotalShooting() + player.getShooting());
+                stats.setTotalPhysicality(stats.getTotalPhysicality() + player.getPhysicality());
+                stats.setTotalSpeed(stats.getTotalSpeed() + player.getSpeed());
             } else if (player instanceof Midfielder) {
-                this.totalPassing += player.getPassing();
-                this.totalPhysicality += player.getPhysicality();
-                this.totalSpeed += player.getSpeed();
+                stats.setTotalPassing(stats.getTotalPassing() + player.getPassing());
+                stats.setTotalPhysicality(stats.getTotalPhysicality() + player.getPhysicality());
+                stats.setTotalSpeed(stats.getTotalSpeed() + player.getSpeed());
             } else if (player instanceof Defender) {
-                this.totalDefending += player.getDefending();
-                this.totalPhysicality += player.getPhysicality();
-                this.totalSpeed += player.getSpeed();
+                stats.setTotalDefending(stats.getTotalDefending() + player.getDefending());
+                stats.setTotalPhysicality(stats.getTotalPhysicality() + player.getPhysicality());
+                stats.setTotalSpeed(stats.getTotalSpeed() + player.getSpeed());
             } else if (player instanceof Goalkeeper) {
-                this.totalShotStopping += player.getShotStopping();
+                stats.setTotalShotStopping(stats.getTotalShotStopping() + player.getShotStopping());
             } else {
                 System.out.println("Error: Player is not of any known class");
             }
         }
+
+        this.teamStats = stats;
     }
 }

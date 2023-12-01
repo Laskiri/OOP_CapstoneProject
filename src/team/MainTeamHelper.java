@@ -1,13 +1,18 @@
 package team;
 
-import com.sun.tools.javac.Main;
 import footballPlayer.*;
-import utils.UserInterface;
-import java.util.*;
 
-public class MainTeamHelper implements Observer {
+import java.util.*;
+import observer.Observable;
+import observer.Observer;
+import team.formation.Formation;
+import team.squad.FootballPlayersSquad;
+
+public class MainTeamHelper implements Observer, Observable {
 
     private MainTeam team;
+
+    private List<Observer> observers = new ArrayList<>();
 
     public MainTeamHelper(MainTeam team) {
         this.team = team;
@@ -15,8 +20,18 @@ public class MainTeamHelper implements Observer {
 
     @Override
     public void update(Observable observable) {
-        System.out.println("update in MainTeamHelper");
+        System.out.println("update in MainTeamHelper: updating startingEleven");
         makeBestStartingEleven(this.team.getFormation(), this.team.getFootballPlayers());
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update(this);
+        }
     }
 
     public FootballPlayer generateStriker(char rank) {
@@ -92,6 +107,7 @@ public class MainTeamHelper implements Observer {
         List<Striker> bestStrikers = new ArrayList<>(strikers.subList(0, formation.getStrikersCount()));
 
         this.team.updateStartingEleven(bestGoalkeepers, bestDefenders, bestMidfielders, bestStrikers);
+        notifyObservers();
     }
 
 }

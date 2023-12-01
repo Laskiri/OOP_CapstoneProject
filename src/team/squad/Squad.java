@@ -1,4 +1,4 @@
-package team;
+package team.squad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,23 +40,23 @@ public abstract class Squad {
         return strikers;
     }
 
-    protected void setGoalkeepers(List<Goalkeeper> goalkeepers) {
+    public void setGoalkeepers(List<Goalkeeper> goalkeepers) {
         this.goalkeepers = goalkeepers;
     }
 
-    protected void setDefenders(List<Defender> defenders) {
+    public void setDefenders(List<Defender> defenders) {
         this.defenders = defenders;
     }
 
-    protected void setMidfielders(List<Midfielder> midfielders) {
+    public void setMidfielders(List<Midfielder> midfielders) {
         this.midfielders = midfielders;
     }
 
-    protected void setStrikers(List<Striker> strikers) {
+    public void setStrikers(List<Striker> strikers) {
         this.strikers = strikers;
     }
 
-    protected void setAllPlayers(List<FootballPlayer> allPlayers) {
+    public void setAllPlayers(List<FootballPlayer> allPlayers) {
         this.allPlayers = allPlayers;
     }
 

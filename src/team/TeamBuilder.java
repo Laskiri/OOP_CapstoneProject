@@ -1,6 +1,6 @@
 package team;
 
-import java.util.Random;
+import team.teamStats.TeamStats;
 import utils.RandomGenerationUtil;
 import utils.RankUtil;
 
@@ -8,12 +8,7 @@ public class TeamBuilder {
     int teamNumber;
     String name;
     char teamRank;
-    int totalShooting;
-    int totalDefending;
-    int totalPassing;
-    int totalShotStopping;
-    int totalPhysicality;
-    int totalSpeed;
+    TeamStats teamStats = new TeamStats();
 
     public TeamBuilder setRandomName() {
 
@@ -29,12 +24,12 @@ public class TeamBuilder {
 
     public TeamBuilder setTeamStats() {
         int rankBaseRating = RankUtil.getRankValue(this.teamRank);
-        this.totalShooting = 3 * rankBaseRating;
-        this.totalDefending = 3 * rankBaseRating;
-        this.totalPassing = 4 * rankBaseRating;
-        this.totalShotStopping = 1 * rankBaseRating;
-        this.totalPhysicality = 10 * rankBaseRating;
-        this.totalSpeed = 10 * rankBaseRating;
+        this.teamStats.setTotalShooting(3 * rankBaseRating);
+        this.teamStats.setTotalDefending(3 * rankBaseRating);
+        this.teamStats.setTotalPassing(4 * rankBaseRating);
+        this.teamStats.setTotalShotStopping(1 * rankBaseRating);
+        this.teamStats.setTotalPhysicality(10 * rankBaseRating);
+        this.teamStats.setTotalSpeed(10 * rankBaseRating);
         return this;
     }
 

@@ -1,6 +1,5 @@
 package footballPlayer;
 
-import java.util.Random;
 import utils.RandomGenerationUtil;
 
 public abstract class FootballPlayer {
